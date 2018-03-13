@@ -67,7 +67,7 @@ module Tire
         # Define mapping for the property passed as the first argument (`name`)
         # using definition from the second argument (`options`).
         #
-        # `:type` is optional and defaults to `'string'`.
+        # `:type` is optional and defaults to `'text'`.
         #
         # Usage:
         #
@@ -96,7 +96,7 @@ module Tire
             @mapping = previous
           end
 
-          mapping[name][:type] ||= 'string'
+          mapping[name][:type] ||= 'text'
 
           self
         end
