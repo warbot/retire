@@ -18,7 +18,7 @@ module Tire
         end
 
         def self.post(url, data)
-          perform ::RestClient.post(url, data, :headers => {:content_type => :json})
+          perform ::RestClient.post(url, data, {:content_type => :json})
         rescue *ConnectionExceptions
           raise
         rescue ::RestClient::Exception => e
@@ -26,7 +26,7 @@ module Tire
         end
 
         def self.put(url, data)
-          perform ::RestClient.put(url, data, :headers => {:content_type => :json})
+          perform ::RestClient.put(url, data, {:content_type => :json})
         rescue *ConnectionExceptions
           raise
         rescue ::RestClient::Exception => e
