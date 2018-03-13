@@ -143,7 +143,7 @@ module Tire
       end
 
       def perform
-        @response = Configuration.client.get(self.url + self.params, self.to_json.merge(content_type))
+        @response = Configuration.client.get(self.url + self.params, self.to_json)
         if @response.failure?
           STDERR.puts "[REQUEST FAILED] #{self.to_curl}\n"
           raise SearchRequestFailed, @response.to_s

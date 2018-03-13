@@ -8,7 +8,9 @@ module Tire
         ConnectionExceptions = [::RestClient::ServerBrokeConnection, ::RestClient::RequestTimeout]
 
         def self.get(url, data=nil)
-          perform ::RestClient::Request.new(:method => :get, :url => url, :payload => data).execute
+          perform ::RestClient::Request
+            .new(:method => :get, :url => url, :payload => data, :headers => {:content_type => :json})
+            .execute
         rescue *ConnectionExceptions
           raise
         rescue ::RestClient::Exception => e
@@ -16,7 +18,7 @@ module Tire
         end
 
         def self.post(url, data)
-          perform ::RestClient.post(url, data)
+          perform ::RestClient.post(url, data, :headers => {:content_type => :json})
         rescue *ConnectionExceptions
           raise
         rescue ::RestClient::Exception => e
@@ -24,7 +26,7 @@ module Tire
         end
 
         def self.put(url, data)
-          perform ::RestClient.put(url, data)
+          perform ::RestClient.put(url, data, :headers => {:content_type => :json})
         rescue *ConnectionExceptions
           raise
         rescue ::RestClient::Exception => e
