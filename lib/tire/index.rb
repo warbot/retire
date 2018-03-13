@@ -34,11 +34,11 @@ module Tire
 
     def create(options={})
       @options = options
-      @response = Configuration.client.post url, MultiJson.encode(options)
+      @response = Configuration.client.put url, MultiJson.encode(options)
       @response.success? ? @response : false
 
     ensure
-      curl = %Q|curl -X POST #{url} -d '#{MultiJson.encode(options, :pretty => Configuration.pretty)}'|
+      curl = %Q|curl -X PUT #{url} -d '#{MultiJson.encode(options, :pretty => Configuration.pretty)}' -H 'content-type: application/json'|
       logged('CREATE', curl)
     end
 
@@ -143,10 +143,10 @@ module Tire
 
       url  = id ? "#{self.url}/#{type}/#{Utils.escape(id)}#{params_encoded}" : "#{self.url}/#{type}/#{params_encoded}"
 
-      @response = Configuration.client.post url, document
+      @response = Configuration.client.put url, document
       MultiJson.decode(@response.body)
     ensure
-      curl = %Q|curl -X POST "#{url}" -d '#{document}'|
+      curl = %Q|curl -X PUT "#{url}" -d '#{document}' -H 'content-type: application/json'|
       logged([type, id].join('/'), curl)
     end
 
