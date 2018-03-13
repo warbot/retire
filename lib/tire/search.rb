@@ -139,7 +139,7 @@ module Tire
       end
 
       def perform
-        @response = Configuration.client.get(self.url + self.params, self.to_json)
+        @response = Configuration.client.get(self.url + self.params, self.to_json, { content_type: :json })
         if @response.failure?
           STDERR.puts "[REQUEST FAILED] #{self.to_curl}\n"
           raise SearchRequestFailed, @response.to_s
@@ -153,7 +153,7 @@ module Tire
 
       def to_curl
         to_json_escaped = to_json.gsub("'",'\u0027')
-        %Q|curl -X GET '#{url}#{params.empty? ? '?' : params.to_s + '&'}pretty' -d '#{to_json_escaped}'|
+        %Q|curl -X GET '#{url}#{params.empty? ? '?' : params.to_s + '&'}pretty' -d '#{to_json_escaped}' -H'Content-Type: application/json'|
       end
 
       def to_hash
