@@ -108,8 +108,8 @@ module Tire
         self
       end
 
-      def stored_fields(*fields)
-        @stored_fields = Array(fields.flatten)
+      def _source(*fields)
+        @_source = Array(fields.flatten)
         self
       end
 
@@ -173,7 +173,7 @@ module Tire
           request.update( { :suggest => @suggest.to_hash } ) if @suggest
           request.update( { :size => @size } )               if @size
           request.update( { :from => @from } )               if @from
-          request.update( { :stored_fields => @stored_fields } ) if @stored_fields
+          request.update( { :_source => @_source } )         if @_source
           request.update( { :partial_fields => @partial_fields } ) if @partial_fields
           request.update( { :script_fields => @script_fields } ) if @script_fields
           request.update( { :version => @version } )         if @version
